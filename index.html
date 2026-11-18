@@ -1,0 +1,485 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Happy Princess Day, Priya</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,600;1,800&family=Quicksand:wght@400;500;600;700&family=Dancing+Script:wght@500;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --plum:#7a1f6b; --rose:#d4607f; --gold:#c8921a; --ink:#5b3a55;
+  --cream:#fffaf3; --pink:#ffc9e0; --lav:#e6dcff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:'Quicksand',sans-serif; color:var(--ink); overflow:hidden;
+  background:linear-gradient(135deg,#fbd3f5 0%,#fde6e0 30%,#fff3c9 50%,#fde6f0 70%,#e4d8ff 100%);
+  background-size:200% 200%; animation:bg 14s ease-in-out infinite alternate;
+}
+@keyframes bg{to{background-position:100% 100%}}
+
+/* Floating sparkles */
+#fx{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+#fx span{position:absolute;bottom:-30px;opacity:.7;animation:rise linear forwards}
+@keyframes rise{to{transform:translateY(-110vh) rotate(180deg);opacity:0}}
+
+/* Screens */
+.screen{
+  position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;
+  padding:24px;z-index:1;
+}
+.screen.active{display:flex;animation:in .8s ease both}
+@keyframes in{from{opacity:0;filter:blur(8px);transform:translateY(14px)}to{opacity:1;filter:blur(0);transform:none}}
+.rise{opacity:0;animation:up .8s ease forwards}
+@keyframes up{from{opacity:0;transform:translateY(12px);filter:blur(4px)}to{opacity:1;transform:none;filter:blur(0)}}
+
+/* Cards */
+.card{
+  position:relative; width:min(92vw,460px); border-radius:22px; padding:28px 28px 30px; text-align:center;
+  background:linear-gradient(160deg,#fffdfb 0%,#fff6e8 100%);
+  box-shadow:0 18px 50px rgba(122,31,107,.18),0 2px 8px rgba(200,146,26,.15);
+}
+.card.white{background:linear-gradient(160deg,#fff 0%,#fdf4fb 100%)}
+.eyebrow{font-size:10px;letter-spacing:.28em;font-weight:700;color:var(--gold);text-transform:uppercase}
+h1,h2,h3,.pf{font-family:'Playfair Display',serif;font-style:italic;font-weight:800;color:var(--plum)}
+.grad{background:linear-gradient(90deg,#8a2b87,#e07a8c);-webkit-background-clip:text;background-clip:text;color:transparent}
+.script{font-family:'Dancing Script',cursive;font-weight:700;color:var(--plum)}
+.nav{display:flex;justify-content:space-between;width:min(92vw,460px);margin-top:16px}
+.btn{
+  border:0;cursor:pointer;font:700 11px 'Quicksand',sans-serif;padding:9px 18px;border-radius:999px;
+  box-shadow:0 6px 16px rgba(122,31,107,.15);transition:transform .2s;color:var(--plum)
+}
+.btn:hover{transform:translateY(-2px) scale(1.04)}
+.btn.back{background:var(--lav)}
+.btn.next{background:var(--pink)}
+.nav.single{justify-content:flex-start}
+
+/* 1 Landing */
+#s1{align-items:stretch;justify-content:center}
+.hero{display:flex;align-items:center;justify-content:center;gap:48px;width:min(94vw,1000px);margin:auto;flex-wrap:wrap}
+.hero .txt{flex:1 1 380px;text-align:left}
+.date{font-size:12px;letter-spacing:.22em;font-weight:700;color:var(--plum);margin-bottom:14px}
+.hero h1{font-size:clamp(46px,8vw,78px);line-height:.95}
+.hero h1 .l2{display:block;font-size:.72em;margin-top:2px}
+.hero h2{font-size:clamp(20px,3vw,26px);margin:14px 0 10px}
+.hero p{font-size:14px;line-height:1.7;max-width:420px}
+.hero .side{flex:0 1 300px;text-align:center}
+.hero .side img{width:230px;max-width:60vw;display:block;margin:0 auto 12px;animation:float 4s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-10px)}}
+.enter{font-size:13px;padding:12px 26px;background:linear-gradient(90deg,#ffc2dd,#ffb3d1)}
+
+/* 2 Gifts */
+.card h2{font-size:30px;margin:6px 0 10px}
+.card h2 em{color:var(--rose)}
+.gift-img{position:relative;width:190px;margin:8px auto 0}
+.gift-img img{width:100%;display:block}
+.bar{width:60px;height:3px;border-radius:3px;background:var(--gold);margin:12px auto 14px}
+.card p.body{font-size:13px;line-height:1.75;max-width:340px;margin:0 auto}
+.sign{font-size:20px;margin-top:14px}
+.dec{position:absolute;font-size:16px;animation:float 3s ease-in-out infinite}
+
+/* 3 Crown puzzle */
+.q{font-size:clamp(24px,4vw,30px);max-width:360px;text-align:center;margin-bottom:14px;line-height:1.2}
+.grid{display:grid;grid-template-columns:repeat(3,64px);gap:10px;justify-content:center;padding:16px;background:#fff;border-radius:18px;width:min(92vw,460px);box-shadow:0 18px 50px rgba(122,31,107,.15)}
+.cell{
+  width:64px;height:64px;border-radius:14px;background:linear-gradient(160deg,#fff,#ffeaf4);
+  box-shadow:0 4px 10px rgba(122,31,107,.12);display:grid;place-items:center;font-size:28px;color:var(--gold)
+}
+.cell.slot{background:#fff7fb;border:2px dashed #d3a53a;cursor:pointer;box-shadow:none;transition:background .2s}
+.cell.slot:hover{background:#ffd6ea}
+.cell.slot.filled{border-style:solid;animation:pop .5s ease}
+@keyframes pop{40%{transform:scale(1.3)}}
+.cell.fade{opacity:.55}
+
+/* 4 Reveal */
+.reveal{position:relative;overflow:hidden;padding:26px 20px}
+.reveal .ghost{position:absolute;font-size:30px;opacity:.12;filter:blur(2px)}
+.reveal img{width:90px;display:block;margin:0 auto 12px;position:relative}
+.reveal h3{font-size:26px;position:relative;line-height:1.25}
+
+/* 5 Note */
+.note{text-align:center}
+.note h2{font-size:30px;font-style:normal;text-transform:uppercase;letter-spacing:.01em}
+.note h2 span{color:var(--rose)}
+.note .to{font-size:20px;color:var(--rose);margin:10px 0}
+.note .cat{position:absolute;top:-22px;right:-14px;width:96px;filter:drop-shadow(0 6px 8px rgba(0,0,0,.2))}
+.seal{position:absolute;left:-8px;bottom:-30px;width:70px;height:70px}
+.seal .core{
+  position:absolute;inset:8px;border-radius:50%;border:2px solid #d9a93a;background:#fff3cf;
+  display:grid;place-items:center;font-size:20px;box-shadow:0 0 0 4px rgba(217,169,58,.25)
+}
+.seal svg{position:absolute;inset:0}
+
+/* 6 Surprises */
+.sur{padding:22px 22px 24px}
+.sur h2{font-size:30px;font-style:normal}
+.sur h2 span{color:var(--rose)}
+.meta{display:flex;justify-content:space-between;font-size:9px;margin:10px 4px 12px;letter-spacing:.02em}
+.meta b{color:var(--plum)}
+.frame{width:150px;min-height:150px;margin:0 auto;padding:6px;border:1px solid #d9b25a;border-radius:6px;background:#fff8ea;position:relative}
+.frame img{width:100%;display:block;border-radius:4px;box-shadow:0 8px 14px rgba(0,0,0,.12)}
+.frame .fl{position:absolute;top:4px;left:6px;font-size:12px}
+.frame .ht{position:absolute;right:6px;bottom:4px;font-size:11px;color:#e0457a}
+.foot{display:flex;justify-content:space-between;align-items:flex-end;font-size:9px;margin-top:14px;text-align:left;line-height:1.5}
+.foot .script{font-size:14px;color:var(--rose);font-weight:500}
+
+/* 7 Final */
+.fin{width:min(94vw,540px);padding:22px 24px 28px}
+.fin .tag{position:absolute;top:16px;left:20px;font-size:9px;letter-spacing:.22em;font-weight:700;color:var(--plum)}
+.fin .st{position:absolute;top:14px;right:18px;color:var(--gold)}
+.fin .crown{font-size:34px;margin-top:10px}
+.fin h1{font-size:clamp(44px,9vw,62px);line-height:1.05}
+.fin .sub{font-family:'Playfair Display',serif;font-weight:800;letter-spacing:.06em;color:var(--plum);font-size:17px;margin:4px 0 14px}
+.fin p{font-size:13px;line-height:1.7;max-width:420px;margin:0 auto 12px}
+.fin .script{font-size:15px;color:var(--rose);font-weight:500}
+.fin .thanks{position:absolute;right:-14px;bottom:-16px;width:110px}
+
+/* Curtain intro */
+#curtain{position:fixed;inset:0;z-index:100;overflow:hidden;background:#2a0a1f}
+.panel{
+  position:absolute;top:0;bottom:0;width:50.5%;
+  background:repeating-linear-gradient(90deg,#7a0f2e 0,#a3153f 30px,#5e0b24 60px,#8c1236 90px);
+  box-shadow:inset 0 0 70px rgba(0,0,0,.5);
+  transition:transform 2.6s cubic-bezier(.65,0,.35,1);
+}
+.panel.l{left:0}
+.panel.r{right:0}
+#curtain.open .panel.l{transform:translateX(-102%)}
+#curtain.open .panel.r{transform:translateX(102%)}
+#curtain .valance{
+  position:absolute;top:0;left:0;right:0;height:44px;z-index:3;
+  background:linear-gradient(#f0c75a,#b8801f);box-shadow:0 6px 16px rgba(0,0,0,.4);
+  transition:transform 1s ease 1.8s;
+}
+#curtain.open .valance{transform:translateY(-110%)}
+#open{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:4;
+  background:none;border:0;cursor:pointer;text-align:center;color:#ffe3a3;
+  font-family:'Quicksand',sans-serif;transition:opacity .5s;
+}
+#open .pk{display:block;font-size:72px;animation:pulse 1.4s ease-in-out infinite;filter:drop-shadow(0 0 18px rgba(255,200,120,.8))}
+#open small{display:block;margin-top:10px;font-size:13px;letter-spacing:.2em;font-weight:700}
+@keyframes pulse{50%{transform:scale(1.18)}}
+#curtain.open #open{opacity:0;pointer-events:none}
+#curtain.open{pointer-events:none}
+#open:focus-visible{outline:3px solid #ffe3a3;outline-offset:12px;border-radius:20px}
+</style>
+</head>
+
+<body>
+
+<!-- Curtain and music -->
+<div id="curtain">
+  <div class="valance"></div>
+  <div class="panel l"></div>
+  <div class="panel r"></div>
+  <button id="open" type="button" aria-label="Tap the heart to open the curtains">
+    <span class="pk">💗</span>
+    <small>TAP TO OPEN</small>
+  </button>
+</div>
+
+<audio id="song" src="audio/song.mp3" preload="auto"></audio>
+
+<div id="fx"></div>
+
+<!-- 1 Landing -->
+<section class="screen active" id="s1">
+  <div class="hero">
+    <div class="txt">
+      <div class="date rise" style="animation-delay:.1s">👑 NOVEMBER 18</div>
+      <h1 class="grad rise" style="animation-delay:.3s">Happy<span class="l2">Princess Day,</span></h1>
+      <h2 class="rise" style="animation-delay:.8s">My <span data-name>Priya</span>! 👑 💞</h2>
+      <p class="rise" style="animation-delay:1.1s">Today the whole kingdom celebrates you. I made this little royal world, just for you, to wrap your special day in sparkles, flowers, and all my love. 💗</p>
+    </div>
+    <div class="side rise" style="animation-delay:1.2s">
+      <img src="images/kitty-flowers.jpg" alt="" onerror="this.style.display='none'">
+      <button class="btn enter" data-go="2">Enter the Palace →</button>
+    </div>
+  </div>
+</section>
+
+<!-- 2 Gifts -->
+<section class="screen" id="s2">
+  <div class="card">
+    <div class="eyebrow">✦ Gift for you ✦</div>
+    <h2>Gifts for <em>My Princess</em> 🎁</h2>
+    <div class="gift-img">
+      <span class="dec" style="left:-18px;top:10px">🎀</span>
+      <span class="dec" style="right:-18px;top:10px">🎁</span>
+      <img src="images/kitty-gifts.jpg" alt="" onerror="this.style.display='none'">
+    </div>
+    <div class="bar"></div>
+    <p class="body">Every gift is wrapped in a little bit of my heart, because you deserve every sweet thing in the world, my love. 💗</p>
+    <div class="script sign">with all my love, your Prince 💌</div>
+  </div>
+  <div class="nav">
+    <button class="btn back" data-go="1">← Back</button>
+    <button class="btn next" data-go="3">Next →</button>
+  </div>
+</section>
+
+<!-- 3 Crown puzzle -->
+<section class="screen" id="s3">
+  <h2 class="q">Sweetheart, one crown is missing, place it 👑</h2>
+  <div class="grid" id="grid"></div>
+</section>
+
+<!-- 4 Reveal -->
+<section class="screen" id="s4">
+  <h2 class="q">Sweetheart, one crown is missing, place it 👑</h2>
+  <div class="card white reveal">
+    <span class="ghost" style="left:12%;top:14%">👑</span>
+    <span class="ghost" style="right:12%;top:12%">✦</span>
+    <span class="ghost" style="left:10%;bottom:18%">✦</span>
+    <span class="ghost" style="right:14%;bottom:14%">👑</span>
+    <img src="images/kitty-crown.jpg" alt="" onerror="this.style.display='none'">
+    <h3>The crown was always meant for you.</h3>
+  </div>
+  <div class="nav">
+    <button class="btn back" data-go="2">← Back</button>
+    <button class="btn next" data-go="5">Next →</button>
+  </div>
+</section>
+
+<!-- 5 Royal note -->
+<section class="screen" id="s5">
+  <div class="card note">
+    <img class="cat" src="images/cat-tulips.jpg" alt="" onerror="this.style.display='none'">
+    <div class="eyebrow">A Royal Note</div>
+    <h2>Just for you <span>✦</span></h2>
+    <div class="pf to">To my <span data-name>Priya</span>,</div>
+    <p class="body">You are the princess of my heart, with the kindest soul, the brightest smile, and a love that makes every ordinary day feel like a fairytale. Thank you for being you. Happy Princess Day. 👑 💗</p>
+    <div class="script sign" style="font-size:22px;margin-top:18px">Forever yours, your Prince 💌</div>
+    <div class="seal">
+      <svg viewBox="0 0 100 100">
+        <defs>
+          <path id="c" d="M50,50 m-42,0 a42,42 0 1,1 84,0 a42,42 0 1,1 -84,0"/>
+        </defs>
+        <text font-size="9" font-family="Playfair Display,serif" fill="#8a5a10" letter-spacing="1.5">
+          <textPath href="#c">ROYAL SEAL · WITH LOVE · FOR YOU ·</textPath>
+        </text>
+      </svg>
+      <div class="core">👑</div>
+    </div>
+  </div>
+  <div class="nav">
+    <button class="btn back" data-go="4" style="margin-left:56px">← Back</button>
+    <button class="btn next" data-go="6">Next →</button>
+  </div>
+</section>
+
+<!-- 6 Royal surprises -->
+<section class="screen" id="s6">
+  <div class="card sur">
+    <h2 class="pf">Royal <span>Surprises</span> ✦</h2>
+    <div class="meta">
+      <span><b>FROM:</b> Your Prince</span>
+      <span><b>TO:</b> <span data-name>Priya</span></span>
+    </div>
+    <div class="frame">
+      <span class="fl">🌼</span>
+      <img src="images/catforyou.jpg" alt="" onerror="this.style.display='none'">
+      <span class="ht">💗</span>
+    </div>
+    <div class="foot">
+      <div><b>DATE:</b> November 18<br><b>VALID FOR:</b> Forever</div>
+      <div class="script">sealed with love, for my Princess 💌</div>
+    </div>
+  </div>
+  <div class="nav">
+    <button class="btn back" data-go="5">← Back</button>
+    <button class="btn next" data-go="7">Next →</button>
+  </div>
+</section>
+
+<!-- 7 Final -->
+<section class="screen" id="s7">
+  <div class="card fin">
+    <div class="tag">FOR <span data-name data-upper>PRIYA</span> ✦</div>
+    <div class="st">✦</div>
+    <div class="crown">👑</div>
+    <h1 class="grad">My Princess</h1>
+    <div class="sub">FOREVER &amp; ALWAYS <span style="color:#e0335c">❤️</span></div>
+    <p>If you smiled even once while going through this, it was all worth it. May your day be as magical as you make my life. Happy Princess Day, my love.</p>
+    <div class="script">made with 💗, crowns, and a whole kingdom of love 💌</div>
+    <img class="thanks" src="images/kitty-thankyou.jpg" alt="" onerror="this.style.display='none'">
+  </div>
+  <div class="nav single">
+    <button class="btn back" data-go="6">← Back</button>
+  </div>
+</section>
+
+<script>
+const NAME = "Priya";
+document.title = "Happy Princess Day, " + NAME;
+
+document.querySelectorAll("[data-name]").forEach(e=>{
+  e.textContent = e.hasAttribute("data-upper") ? NAME.toUpperCase() : NAME;
+});
+
+document.querySelectorAll(".q").forEach(e=>{
+  e.textContent = NAME + ", one crown is missing, place it 👑";
+});
+
+/* Navigation */
+function go(n){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+
+  const s = document.getElementById("s"+n);
+  s.classList.add("active");
+
+  s.querySelectorAll(".rise").forEach(r=>{
+    r.style.animation="none";
+    r.offsetHeight;
+    r.style.animation="";
+  });
+
+  if(n===3) buildGrid();
+}
+
+document.addEventListener("click",e=>{
+  const b = e.target.closest("[data-go]");
+  if(b) go(+b.dataset.go);
+});
+
+/* Crown puzzle */
+function buildGrid(){
+  const g = document.getElementById("grid");
+  g.innerHTML="";
+
+  for(let i=0;i<9;i++){
+    const c = document.createElement("div");
+    c.className="cell";
+
+    if(i===0){
+      c.textContent="👑";
+    }
+    else if(i===8){
+      c.textContent="👑";
+      c.classList.add("fade");
+    }
+    else if(i===4){
+      c.classList.add("slot");
+
+      c.onclick=()=>{
+        if(c.classList.contains("filled")) return;
+
+        c.textContent="👑";
+        c.classList.add("filled");
+        burst();
+
+        setTimeout(()=>go(4),1000);
+      };
+    }
+    else{
+      c.textContent="✦";
+    }
+
+    g.appendChild(c);
+  }
+}
+
+/* Floating sparkles */
+const fx = document.getElementById("fx");
+const icons = ["✦","👑","💗","✨","🎀"];
+
+function spark(){
+  const s = document.createElement("span");
+
+  s.textContent = icons[Math.floor(Math.random()*icons.length)];
+  s.style.left = Math.random()*100+"vw";
+  s.style.fontSize = (8+Math.random()*12)+"px";
+  s.style.color = "#d9a93a";
+  s.style.animationDuration = (9+Math.random()*9)+"s";
+
+  fx.appendChild(s);
+  setTimeout(()=>s.remove(),19000);
+}
+
+setInterval(spark,700);
+for(let i=0;i<10;i++) spark();
+
+function burst(){
+  for(let i=0;i<18;i++){
+    setTimeout(spark,i*30);
+  }
+}
+
+/* ===== CURTAIN + SONG CONTROL ===== */
+
+const song = document.getElementById("song");
+const cur = document.getElementById("curtain");
+const openButton = document.getElementById("open");
+
+const SONG_START = 54; // 00:54
+const SONG_END = 77;   // 01:17
+
+let curtainOpened = false;
+let pageRefreshing = false;
+
+/* Song ka end time check karo */
+song.addEventListener("timeupdate",()=>{
+  if(!curtainOpened || pageRefreshing) return;
+
+  if(song.currentTime >= SONG_END){
+    pageRefreshing = true;
+
+    // Song ko stop karo
+    song.pause();
+
+    // Website ko starting position par refresh karo
+    window.location.reload();
+  }
+});
+
+/* Heart button click */
+openButton.addEventListener("click",async()=>{
+  if(curtainOpened) return;
+
+  curtainOpened = true;
+  openButton.disabled = true;
+
+  // Song 00:54 se start karo
+  song.volume = 0.7;
+
+  try{
+    // Agar audio metadata loaded hai
+    if(song.readyState >= 1){
+      song.currentTime = SONG_START;
+    }else{
+      // Audio metadata load hone ka wait
+      await new Promise((resolve,reject)=>{
+        song.addEventListener("loadedmetadata",resolve,{once:true});
+        song.addEventListener("error",reject,{once:true});
+      });
+
+      song.currentTime = SONG_START;
+    }
+
+    // Song play karo
+    await song.play();
+
+  }catch(error){
+    console.error("Audio playback error:",error);
+  }
+
+  // Curtains open karo
+  cur.classList.add("open");
+
+  // Landing screen show karo
+  go(1);
+
+  // Curtain animation ke baad curtain remove
+  setTimeout(()=>{
+    cur.remove();
+  },3600);
+});
+</script>
+
+</body>
+</html>
